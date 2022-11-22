@@ -49,7 +49,7 @@ namespace Test
             this.radarPanel.BackColor = System.Drawing.Color.Black;
             this.radarPanel.Location = new System.Drawing.Point(95, 12);
             this.radarPanel.Name = "radarPanel";
-            this.radarPanel.Size = new System.Drawing.Size(800, 400);
+            this.radarPanel.Size = new System.Drawing.Size(800, 500);
             this.radarPanel.TabIndex = 0;
             // 
             // serialPort
@@ -58,6 +58,8 @@ namespace Test
             this.serialPort.DataBits = 8;
             this.serialPort.DiscardNull = false;
             this.serialPort.DtrEnable = false;
+            asciiEncoding1.DecoderFallback = decoderReplacementFallback1;
+            asciiEncoding1.EncoderFallback = encoderReplacementFallback1;
             this.serialPort.Encoding = asciiEncoding1;
             this.serialPort.Handshake = System.IO.Ports.Handshake.None;
             this.serialPort.NewLine = "\n";
@@ -76,7 +78,7 @@ namespace Test
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("맑은 고딕 Semilight", 39.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(203, 459);
+            this.label1.Location = new System.Drawing.Point(194, 520);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(240, 71);
             this.label1.TabIndex = 1;
@@ -86,7 +88,7 @@ namespace Test
             // pictureBox
             // 
             this.pictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox.BackgroundImage")));
-            this.pictureBox.Location = new System.Drawing.Point(585, 464);
+            this.pictureBox.Location = new System.Drawing.Point(594, 522);
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(198, 66);
             this.pictureBox.TabIndex = 2;
@@ -104,7 +106,6 @@ namespace Test
             this.Name = "MainForm";
             this.Text = "하야세 유우카 카와이 ><";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.serialPort.DataReceived += DataReceived;
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
