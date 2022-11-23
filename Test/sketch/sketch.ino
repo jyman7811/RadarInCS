@@ -5,8 +5,9 @@ Servo servo;
 int trigPin = 7;
 int echoPin = 6;
 int motor = 12;
-int range = 20;
+int range = 100;
 int now = 90;
+bool reverse = false;
 
 void setup() {
   servo.attach(motor);
@@ -14,6 +15,7 @@ void setup() {
   Serial.begin(9600);
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
+  
 }
 
 
@@ -35,9 +37,26 @@ void loop() {
     float distance = measure();
     Serial.println((String)distance + "," + (String)now);
     
+    if (!reverse) {
+      if (now == 90 -range / 2) {
+        now += 2;
+        reverse = true;
+      } 
+      else {
+        now-=2;
+      }
+    }
+    else {
+        if (now == 90 +range / 2) {
+          now -= 2;
+          reverse = false;
+        } 
+        else {
+          now+=2;
+        }
+    }
 
-    delay(500);
-  // }
+    delay(300);
 }
 
 float measure() {
