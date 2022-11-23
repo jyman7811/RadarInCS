@@ -58,14 +58,12 @@ namespace Test
             this.serialPort.DataBits = 8;
             this.serialPort.DiscardNull = false;
             this.serialPort.DtrEnable = false;
-            asciiEncoding1.DecoderFallback = decoderReplacementFallback1;
-            asciiEncoding1.EncoderFallback = encoderReplacementFallback1;
             this.serialPort.Encoding = asciiEncoding1;
             this.serialPort.Handshake = System.IO.Ports.Handshake.None;
             this.serialPort.NewLine = "\n";
             this.serialPort.Parity = System.IO.Ports.Parity.None;
             this.serialPort.ParityReplace = ((byte)(63));
-            this.serialPort.PortName = "COM3";
+            this.serialPort.PortName = "COM5";
             this.serialPort.ReadBufferSize = 4096;
             this.serialPort.ReadTimeout = -1;
             this.serialPort.ReceivedBytesThreshold = 1;
@@ -106,6 +104,7 @@ namespace Test
             this.Name = "MainForm";
             this.Text = "하야세 유우카 카와이 ><";
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.serialPort.DataReceived += DataReceived;
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -118,5 +117,6 @@ namespace Test
         private System.IO.Ports.SerialPort serialPort;
         private Label label1;
         private PictureBox pictureBox;
+        private Graphics graphic;
     }
 }

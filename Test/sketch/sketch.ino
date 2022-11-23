@@ -33,7 +33,7 @@ void loop() {
 
     servo.write(now);
     float distance = measure();
-    Serial.println(distance + "," + now);
+    Serial.println((String)distance + "," + (String)now);
     
 
     delay(500);
