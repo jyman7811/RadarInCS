@@ -10,13 +10,10 @@ namespace Test
             CheckForIllegalCrossThreadCalls = false;
             serialPort.Open();
             graphic = radarPanel.CreateGraphics();
-            Brush brush = new SolidBrush(Color.DarkGreen);
-            Brush emptyBrush = new SolidBrush(Color.Black);
 
             void shit(object sender, PaintEventArgs e)
             {
-                graphic.FillPie(brush, 0, 0, 1000, 1000, -160, 140);
-                graphic.FillPie(emptyBrush, 26, 12, 950, 950, -160, 140);
+                graphic.DrawPie(new Pen(Color.Green, 10), 0, 0, radarPanel.Width, radarPanel.Height * 2, -160, 140);
             }
 
             this.Paint += new PaintEventHandler(shit);
@@ -25,17 +22,47 @@ namespace Test
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            Thread thread = new Thread(WorkBitch);
+            thread.Start();
+        }
+
+        private void button1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (rangeComboBox.SelectedIndex == -1)
+            {
+                return;
+            }
+
+            currentRange.Text = rangeComboBox.Items[rangeComboBox.SelectedIndex].ToString();
+
+            serialPort.WriteLine("a," + rangeComboBox.Items[rangeComboBox.SelectedIndex].ToString());
 
         }
 
-        private void DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
+        private void serialPort_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
         {
             string[] data = serialPort.ReadLine().Split(',');
 
-            label1.Text = data[0];
+            distance.Text = $"{data[0]}cm {data[1]}¡Æ";
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void WorkBitch()
+        {
+            while (true)
+            {
+                try
+                {
+                    serialPort.WriteLine("WORK");
+                    Thread.Sleep(300);
+                }
+                catch (System.InvalidOperationException)
+                {
+                    break;
+                }
+            }
+        }
+
+        private void distance_Click(object sender, EventArgs e)
         {
 
         }
